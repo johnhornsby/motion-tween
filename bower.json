@@ -1,0 +1,17 @@
+{
+  "name": "motion-tween",
+  "version": "1.0.0",
+  "authors": [
+    "John Hornsby <john@interactivelabs.co.uk>"
+  ],
+  "description": "Simple tween lib that does nothing more than tween, no connection to the dom!",
+  "main": "dist/motion-tween.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
