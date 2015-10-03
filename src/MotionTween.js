@@ -1,4 +1,6 @@
 import Utils from "./Utils";
+import * as Easing from './Easing';
+import Ease from "./animators/ease";
 import Friction from "./animators/friction";
 import Spring from "./animators/spring";
 import SpringRK4 from "./animators/springRK4";
@@ -14,7 +16,50 @@ export default class MotionTween {
     update: function(){},
     complete: function(){}
   }
+
+  static easingFunction = {
+    easeInQuad: Easing.easeInQuad,
+    easeOutQuad: Easing.easeOutQuad,
+    easeInOutQuad: Easing.easeInOutQuad,
+    swing: Easing.swing,
+    easeInCubic: Easing.easeInCubic,
+    easeOutCubic: Easing.easeOutCubic,
+    easeInOutCubic: Easing.easeInOutCubic,
+    easeInQuart: Easing.easeInQuart,
+    easeOutQuart: Easing.easeOutQuart,
+    easeInOutQuart: Easing.easeInOutQuart,
+    easeInQuint: Easing.easeInQuint,
+    easeOutQuint: Easing.easeOutQuint,
+    easeInOutQuint: Easing.easeInOutQuint,
+    easeInSine: Easing.easeInSine,
+    easeOutSine: Easing.easeOutSine,
+    easeInOutSine: Easing.easeInOutSine,
+    easeInExpo: Easing.easeInExpo,
+    easeOutExpo: Easing.easeOutExpo,
+    easeInOutExpo: Easing.easeInOutExpo,
+    easeInCirc: Easing.easeInCirc,
+    easeOutCirc: Easing.easeOutCirc,
+    easeInOutCirc: Easing.easeInOutCirc,
+    easeInElastic: Easing.easeInElastic,
+    easeOutElastic: Easing.easeOutElastic,
+    easeInOutElastic: Easing.easeInOutElastic,
+    easeInBack: Easing.easeInBack,
+    easeOutBack: Easing.easeOutBack,
+    easeInOutBack: Easing.easeInOutBack,
+    easeInBounce: Easing.easeInBounce,
+    easeOutBounce: Easing.easeOutBounce,
+    easeInOutBounce: Easing.easeInOutBounce
+  }
+
+  static animatorType = {
+    spring: Spring.Type,
+    springRK4: SpringRK4.Type,
+    friction: Friction.Type,
+    ease: Ease.Type
+  }
+
   
+
 
   constructor(options) {
     this._time = null;
@@ -41,7 +86,7 @@ export default class MotionTween {
     // Deep merge of default and incoming options
     Utils.extend(this._options, MotionTween.DEFAULT_OPTIONS, true);
     Utils.extend(this._options, options, true);
-    
+
     // time we can ignore for some of the animators
     this._time = this._options.time;
     this._startX = this._options.startValue;
@@ -60,15 +105,18 @@ export default class MotionTween {
       case SpringRK4.Type:
         this._animator = new SpringRK4(this._options.animatorOptions);
         break;
-      default:
+      case Friction.Type:
         this._animator = new Friction(this._options.animatorOptions);
+        break;
+      default:
+        this._animator = new Ease(this._options.animatorOptions);
     }
     
     // this._animator = new Spring({stiffness: 100, damping: 20, tolerance: 0.01});
     this._isAnimating = true;
     this._startTime = this._lastTime = new Date().getTime();
     //this._tick(); 
-    this._requestionAnimationFrameID = window.requestAnimationFrame(this._tick.bind(this));
+    this._requestionAnimationFrameID = window.requestAnimationFrame(::this._tick);
   }
   
   
@@ -89,9 +137,9 @@ export default class MotionTween {
 
     if (this._animator.isFinished() === false) {
       this._x = this._startX + ((this._endX - this._startX) * normalisedAnimatedX);
-      // console.log(`x=${this._x} normalisedAnimatedX=${normalisedAnimatedX}`);
+      // console.log(`x=${this._x} normalisedAnimatedX=${normalisedAnimatedX} delta=${delta}`);
       this._options.update(this._x);
-      this._requestionAnimationFrameID = window.requestAnimationFrame(this._tick.bind(this));
+      this._requestionAnimationFrameID = window.requestAnimationFrame(::this._tick);
     } else {
       this._x = this._endX
       this._options.update(this._x);

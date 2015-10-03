@@ -1,6 +1,6 @@
 {
   "name": "motion-tween",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "authors": [
     "John Hornsby <john@interactivelabs.co.uk>"
   ],
@@ -12,6 +12,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "examples",
+    "src"
   ]
 }
