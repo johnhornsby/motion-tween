@@ -83,19 +83,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Easing = _interopRequireWildcard(_Easing);
 
-	var _animatorsEase = __webpack_require__(4);
+	var _animatorsCubicBezier = __webpack_require__(4);
+
+	var _animatorsCubicBezier2 = _interopRequireDefault(_animatorsCubicBezier);
+
+	var _animatorsEase = __webpack_require__(5);
 
 	var _animatorsEase2 = _interopRequireDefault(_animatorsEase);
 
-	var _animatorsFriction = __webpack_require__(5);
+	var _animatorsFriction = __webpack_require__(6);
 
 	var _animatorsFriction2 = _interopRequireDefault(_animatorsFriction);
 
-	var _animatorsSpring = __webpack_require__(6);
+	var _animatorsSpring = __webpack_require__(7);
 
 	var _animatorsSpring2 = _interopRequireDefault(_animatorsSpring);
 
-	var _animatorsSpringRK4 = __webpack_require__(7);
+	var _animatorsSpringRK4 = __webpack_require__(8);
 
 	var _animatorsSpringRK42 = _interopRequireDefault(_animatorsSpringRK4);
 
@@ -154,7 +158,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      spring: _animatorsSpring2["default"].Type,
 	      springRK4: _animatorsSpringRK42["default"].Type,
 	      friction: _animatorsFriction2["default"].Type,
-	      ease: _animatorsEase2["default"].Type
+	      ease: _animatorsEase2["default"].Type,
+	      cubicBezier: _animatorsCubicBezier2["default"].Type
 	    },
 	    enumerable: true
 	  }]);
@@ -214,14 +219,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        case _animatorsFriction2["default"].Type:
 	          this._animator = new _animatorsFriction2["default"](this._options.animatorOptions);
 	          break;
+	        case _animatorsCubicBezier2["default"].Type:
+	          this._animator = new _animatorsCubicBezier2["default"](this._options.animatorOptions);
+	          break;
 	        default:
 	          this._animator = new _animatorsEase2["default"](this._options.animatorOptions);
 	      }
 
-	      // this._animator = new Spring({stiffness: 100, damping: 20, tolerance: 0.01});
 	      this._isAnimating = true;
 	      this._startTime = this._lastTime = new Date().getTime();
-	      //this._tick();
+
 	      this._requestionAnimationFrameID = window.requestAnimationFrame(this._tick.bind(this));
 	    }
 	  }, {
@@ -243,7 +250,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      if (this._animator.isFinished() === false) {
 	        this._x = this._startX + (this._endX - this._startX) * normalisedAnimatedX;
-	        // console.log(`x=${this._x} normalisedAnimatedX=${normalisedAnimatedX} delta=${delta}`);
 	        this._options.update(this._x);
 	        this._requestionAnimationFrameID = window.requestAnimationFrame(this._tick.bind(this));
 	      } else {
@@ -553,6 +559,95 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 4 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var CubicBezier = (function () {
+	  _createClass(CubicBezier, null, [{
+	    key: "DEFAULT_OPTIONS",
+	    value: {
+	      tolerance: 0.001,
+	      controlPoints: [.15, .66, .83, .67]
+	    },
+	    enumerable: true
+	  }, {
+	    key: "Type",
+	    value: "CubicBezier",
+	    enumerable: true
+	  }]);
+
+	  function CubicBezier(options) {
+	    _classCallCheck(this, CubicBezier);
+
+	    // merge default with passed
+	    this._options = _extends({}, CubicBezier.DEFAULT_OPTIONS, options);
+
+	    this._x = 0;
+	    this._time = 0;
+	  }
+
+	  _createClass(CubicBezier, [{
+	    key: "step",
+	    value: function step(delta) {
+	      // t: current time, b: begInnIng value, c: change In value, d: duration
+	      this._time += delta;
+	      this._x = this._getPointOnBezierCurve(this._options.controlPoints, this._time);
+	      return this._x;
+	    }
+	  }, {
+	    key: "_getPointOnBezierCurve",
+	    value: function _getPointOnBezierCurve(controlPoints, l) {
+	      var a1 = { x: 0, y: 0 };
+	      var a2 = { x: 1, y: 1 };
+
+	      var c1 = { x: controlPoints[0], y: controlPoints[1] };
+	      var c2 = { x: controlPoints[2], y: controlPoints[3] };
+
+	      var b1 = this._interpolate(a1, c1, l);
+	      var b2 = this._interpolate(c1, c2, l);
+	      var b3 = this._interpolate(c2, a2, l);
+
+	      c1 = this._interpolate(b1, b2, l);
+	      c2 = this._interpolate(b2, b3, l);
+
+	      return this._interpolate(c1, c2, l).y;
+	    }
+	  }, {
+	    key: "_interpolate",
+	    value: function _interpolate(p1, p2, l) {
+	      var p3 = {};
+
+	      p3.x = p1.x + (p2.x - p1.x) * l;
+	      p3.y = p1.y + (p2.y - p1.y) * l;
+
+	      return p3;
+	    }
+	  }, {
+	    key: "isFinished",
+	    value: function isFinished() {
+	      return this._time >= 1;
+	    }
+	  }]);
+
+	  return CubicBezier;
+	})();
+
+	exports["default"] = CubicBezier;
+	module.exports = exports["default"];
+
+/***/ },
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -619,7 +714,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports["default"];
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -693,7 +788,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports["default"];
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -763,7 +858,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports["default"];
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	// r4k from http://mtdevans.com/2013/05/fourth-order-runge-kutta-algorithm-in-javascript-with-demo/

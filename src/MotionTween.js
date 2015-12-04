@@ -1,5 +1,6 @@
 import Utils from "./Utils";
 import * as Easing from './Easing';
+import CubicBezier from "./animators/CubicBezier";
 import Ease from "./animators/ease";
 import Friction from "./animators/friction";
 import Spring from "./animators/spring";
@@ -55,7 +56,8 @@ export default class MotionTween {
     spring: Spring.Type,
     springRK4: SpringRK4.Type,
     friction: Friction.Type,
-    ease: Ease.Type
+    ease: Ease.Type,
+    cubicBezier: CubicBezier.Type
   }
 
   
@@ -108,14 +110,16 @@ export default class MotionTween {
       case Friction.Type:
         this._animator = new Friction(this._options.animatorOptions);
         break;
+      case CubicBezier.Type:
+        this._animator = new CubicBezier(this._options.animatorOptions);
+        break;
       default:
         this._animator = new Ease(this._options.animatorOptions);
     }
     
-    // this._animator = new Spring({stiffness: 100, damping: 20, tolerance: 0.01});
     this._isAnimating = true;
     this._startTime = this._lastTime = new Date().getTime();
-    //this._tick(); 
+
     this._requestionAnimationFrameID = window.requestAnimationFrame(::this._tick);
   }
   
@@ -137,7 +141,6 @@ export default class MotionTween {
 
     if (this._animator.isFinished() === false) {
       this._x = this._startX + ((this._endX - this._startX) * normalisedAnimatedX);
-      // console.log(`x=${this._x} normalisedAnimatedX=${normalisedAnimatedX} delta=${delta}`);
       this._options.update(this._x);
       this._requestionAnimationFrameID = window.requestAnimationFrame(::this._tick);
     } else {
