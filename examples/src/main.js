@@ -87,13 +87,15 @@ new MotionTween({
 	}
 }).start();
 
-const options = {
-	time: 0.5,
+
+const animatorOptions = {
 	easingFunction: MotionTween.easingFunction.easeOutQuad
 }
 
+const time = 0.5;
+
 const animatorType = MotionTween.animatorType.ease;
 
-const factoryValue = MotionTween.getValue(animatorType, options);
+const factoryValue = MotionTween.getValue(animatorType, animatorOptions, time);
 
 console.log(`Factory Value is ${factoryValue}`);

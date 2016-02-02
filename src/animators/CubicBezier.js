@@ -23,8 +23,8 @@ export default class CubicBezier {
   }
 
 
-  static getValue(options) {
-    return CubicBezier._getPointOnBezierCurve(options.controlPoints, options.time);
+  static getValue(options, time) {
+    return CubicBezier._getPointOnBezierCurve(options.controlPoints, time);
   }
 
 

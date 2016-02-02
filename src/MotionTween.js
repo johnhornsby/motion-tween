@@ -79,7 +79,7 @@ export default class MotionTween {
   }
   
   
-  static getValue(animatorType, animatorOptions) { return MotionTween._getValue(animatorType, animatorOptions); }
+  static getValue(animatorType, animatorOptions, time) { return MotionTween._getValue(animatorType, animatorOptions, time); }
 
   start() { this._start() }
 
@@ -155,13 +155,13 @@ export default class MotionTween {
     }
   }
 
-  static _getValue(animatorType, animatorOptions) {
+  static _getValue(animatorType, animatorOptions, time) {
     switch(animatorType) {
       case CubicBezier.Type:
-        return CubicBezier.getValue(animatorOptions);
+        return CubicBezier.getValue(animatorOptions, time);
         break;
       default:
-         return Ease.getValue(animatorOptions);
+         return Ease.getValue(animatorOptions, time);
     }
   }
 }
