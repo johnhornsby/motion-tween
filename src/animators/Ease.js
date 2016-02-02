@@ -22,6 +22,10 @@ export default class Ease {
     this._time = 0
   }
 
+  static getValue(options) {
+    return options.easingFunction(options.time, 0, 1, 1);
+  }
+
 
   step(delta) {
     // t: current time, b: begInnIng value, c: change In value, d: duration

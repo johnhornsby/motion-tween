@@ -86,3 +86,14 @@ new MotionTween({
 		controlPoints: [.15, .66, .83, .67]
 	}
 }).start();
+
+const options = {
+	time: 0.5,
+	easingFunction: MotionTween.easingFunction.easeOutQuad
+}
+
+const animatorType = MotionTween.animatorType.ease;
+
+const factoryValue = MotionTween.getValue(animatorType, options);
+
+console.log(`Factory Value is ${factoryValue}`);

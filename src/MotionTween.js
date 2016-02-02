@@ -16,7 +16,7 @@ export default class MotionTween {
     animatorOptions: null, // use defaults of selected type
     update: function(){},
     complete: function(){}
-  }
+  };
 
   static easingFunction = {
     easeInQuad: Easing.easeInQuad,
@@ -50,7 +50,7 @@ export default class MotionTween {
     easeInBounce: Easing.easeInBounce,
     easeOutBounce: Easing.easeOutBounce,
     easeInOutBounce: Easing.easeInOutBounce
-  }
+  };
 
   static animatorType = {
     spring: Spring.Type,
@@ -58,7 +58,7 @@ export default class MotionTween {
     friction: Friction.Type,
     ease: Ease.Type,
     cubicBezier: CubicBezier.Type
-  }
+  };
 
   
 
@@ -79,9 +79,13 @@ export default class MotionTween {
   }
   
   
+  static getValue(animatorType, animatorOptions) { return MotionTween._getValue(animatorType, animatorOptions); }
+
   start() { this._start() }
 
   destroy() { this._destroy() }
+
+  
 
   
   _init(options) {
@@ -148,6 +152,16 @@ export default class MotionTween {
       this._options.update(this._x);
       this._options.complete();
       this._isAnimating = false;
+    }
+  }
+
+  static _getValue(animatorType, animatorOptions) {
+    switch(animatorType) {
+      case CubicBezier.Type:
+        return CubicBezier.getValue(animatorOptions);
+        break;
+      default:
+         return Ease.getValue(animatorOptions);
     }
   }
 }
