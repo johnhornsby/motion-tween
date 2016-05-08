@@ -5,6 +5,7 @@ const block2 = document.getElementsByClassName('block2')[0];
 const block3 = document.getElementsByClassName('block3')[0];
 const block4 = document.getElementsByClassName('block4')[0];
 const block5 = document.getElementsByClassName('block5')[0];
+const block6 = document.getElementsByClassName('block6')[0];
 
 const endX = window.innerWidth - block1.clientWidth
 
@@ -84,6 +85,22 @@ new MotionTween({
 	animatorType: MotionTween.animatorType.cubicBezier,
 	animatorOptions: {
 		controlPoints: [.15, .66, .83, .67]
+	}
+}).start();
+
+new MotionTween({
+	startValue: 0,
+	endValue: endX,
+	update: (x) => {
+		block6.style.transform = `translateX(${x}px)`;
+	},
+	complete: (x) => {
+		console.log('6 complete');
+	},
+	animatorType: MotionTween.animatorType.springRK4,
+	animatorOptions: {
+		stiffness: 200,
+    	damping: 10
 	}
 }).start();
 

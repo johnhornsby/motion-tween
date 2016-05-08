@@ -209,6 +209,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this._lastTime = 0;
 	      this._startTime = 0;
 
+	      this._options.animatorOptions.destination = this._endX;
+
 	      switch (this._options.animatorType) {
 	        case _animatorsSpring2["default"].Type:
 	          this._animator = new _animatorsSpring2["default"](this._options.animatorOptions);
@@ -246,10 +248,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this._lastTime = now;
 
 	      // pass in normalised delta
-	      var normalisedAnimatedX = this._animator.step(delta);
+	      var x = this._animator.step(delta);
 
 	      if (this._animator.isFinished() === false) {
-	        this._x = this._startX + (this._endX - this._startX) * normalisedAnimatedX;
+
+	        // invert for SpringRK4, SpringRK4 concludes from destination to 0
+	        if (this._options.animatorType === _animatorsSpringRK42["default"].Type) {
+	          x = (x - this._endX) * -1;
+	        }
+
+	        this._x = x;
+
 	        this._options.update(this._x);
 	        this._requestionAnimationFrameID = window.requestAnimationFrame(this._tick.bind(this));
 	      } else {
@@ -594,7 +603,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: "DEFAULT_OPTIONS",
 	    value: {
 	      tolerance: 0.001,
-	      controlPoints: [.15, .66, .83, .67]
+	      controlPoints: [.15, .66, .83, .67],
+	      destination: 1
 	    },
 	    enumerable: true
 	  }, {
@@ -619,7 +629,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // t: current time, b: begInnIng value, c: change In value, d: duration
 	      this._time += delta;
 	      this._x = CubicBezier._getPointOnBezierCurve(this._options.controlPoints, this._time);
-	      return this._x;
+	      return this._x * this._options.destination;
 	    }
 	  }, {
 	    key: "isFinished",
@@ -694,7 +704,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: "DEFAULT_OPTIONS",
 	    value: {
 	      tolerance: 0.001,
-	      easingFunction: Easing.easeOutQuad
+	      easingFunction: Easing.easeOutQuad,
+	      destination: 1
 	    },
 	    enumerable: true
 	  }, {
@@ -719,7 +730,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // t: current time, b: begInnIng value, c: change In value, d: duration
 	      this._time += delta;
 	      this._x = this._options.easingFunction(this._time, 0, 1, 1);
-	      return this._x;
+	      return this._x * this._options.destination;
 	    }
 	  }, {
 	    key: "isFinished",
@@ -835,7 +846,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: {
 	      stiffness: 100,
 	      damping: 20,
-	      tolerance: 0.001
+	      tolerance: 0.001,
+	      destination: 1
 	    },
 	    enumerable: true
 	  }, {
@@ -868,7 +880,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this._v += (F_spring + F_damper) / mass * delta;
 	      this._x += this._v * delta;
 
-	      return this._x;
+	      return this._x * this._options.destination;
 	    }
 	  }, {
 	    key: "isFinished",
@@ -906,7 +918,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: {
 	      stiffness: 100,
 	      damping: 20,
-	      tolerance: 0.001
+	      tolerance: 0.001,
+	      destination: 1
 	    },
 	    enumerable: true
 	  }, {
@@ -923,7 +936,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    // set position to 1 as we are wanting the result normalised
 	    this._state = {
-	      x: 1,
+	      x: this._options.destination,
 	      v: 0
 	    };
 	  }
@@ -974,7 +987,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this._state = this._rk4(this._state, this._acceleration.bind(this), delta);
 	      // the calculation gives values starting from 1 and then finishing at 0,
 	      // we need to transform the values to work from 0 to 1.
-	      return (this._state.x - 1) * -1;
+	      // (0.75 - 1) * -1 = 0.25
+	      // return (this._state.x - 1) * -1;
+	      return this._state.x;
 	    }
 	  }, {
 	    key: "isFinished",

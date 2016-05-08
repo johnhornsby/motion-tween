@@ -4,7 +4,8 @@ export default class Spring {
   static DEFAULT_OPTIONS = {
     stiffness: 100,
     damping: 20,
-    tolerance: 0.001
+    tolerance: 0.001,
+    destination: 1
   }
 
   static Type = "SPRING";
@@ -34,7 +35,7 @@ export default class Spring {
     this._v += ((F_spring + F_damper) / mass) * delta;
     this._x += this._v * delta;
 
-    return this._x;
+    return this._x * this._options.destination;
   }
 
 

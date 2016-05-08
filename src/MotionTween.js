@@ -104,6 +104,8 @@ export default class MotionTween {
     this._lastTime = 0;
     this._startTime = 0;
 
+    this._options.animatorOptions.destination = this._endX;
+
     switch(this._options.animatorType) {
       case Spring.Type:
         this._animator = new Spring(this._options.animatorOptions);
@@ -141,10 +143,17 @@ export default class MotionTween {
     this._lastTime = now;
 
     // pass in normalised delta
-    const normalisedAnimatedX = this._animator.step(delta);
+    let x = this._animator.step(delta);
 
     if (this._animator.isFinished() === false) {
-      this._x = this._startX + ((this._endX - this._startX) * normalisedAnimatedX);
+
+      // invert for SpringRK4, SpringRK4 concludes from destination to 0
+      if (this._options.animatorType === SpringRK4.Type) {
+        x = (x - this._endX) * -1;
+      }
+
+      this._x = x;
+      
       this._options.update(this._x);
       this._requestionAnimationFrameID = window.requestAnimationFrame(::this._tick);
     } else {

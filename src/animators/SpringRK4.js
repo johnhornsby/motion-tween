@@ -5,7 +5,8 @@ export default class SpringRK4 {
   static DEFAULT_OPTIONS = {
     stiffness: 100,
     damping: 20,
-    tolerance: 0.001
+    tolerance: 0.001,
+    destination: 1
   }
 
   static Type = "SPRINGRK4";
@@ -20,7 +21,7 @@ export default class SpringRK4 {
 
     // set position to 1 as we are wanting the result normalised
     this._state = {
-      x: 1,
+      x: this._options.destination,
       v: 0
     }
   }
@@ -70,7 +71,9 @@ export default class SpringRK4 {
     this._state = this._rk4(this._state, ::this._acceleration, delta);
     // the calculation gives values starting from 1 and then finishing at 0,
     // we need to transform the values to work from 0 to 1.
-    return (this._state.x - 1) * -1;
+    // (0.75 - 1) * -1 = 0.25
+    // return (this._state.x - 1) * -1;
+    return this._state.x;
   }
 
 

@@ -5,7 +5,8 @@ export default class Ease {
 
   static DEFAULT_OPTIONS = {
     tolerance: 0.001,
-    easingFunction: Easing.easeOutQuad
+    easingFunction: Easing.easeOutQuad,
+    destination: 1
   }
 
   static Type = "Ease";
@@ -31,7 +32,7 @@ export default class Ease {
     // t: current time, b: begInnIng value, c: change In value, d: duration
     this._time += delta;
     this._x = this._options.easingFunction(this._time, 0, 1, 1);
-    return this._x;
+    return this._x * this._options.destination;
   }
 
 

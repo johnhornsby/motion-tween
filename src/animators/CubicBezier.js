@@ -5,7 +5,8 @@ export default class CubicBezier {
 
   static DEFAULT_OPTIONS = {
     tolerance: 0.001,
-    controlPoints: [.15, .66, .83, .67]
+    controlPoints: [.15, .66, .83, .67],
+    destination: 1
   };
 
   static Type = "CubicBezier";
@@ -32,7 +33,7 @@ export default class CubicBezier {
     // t: current time, b: begInnIng value, c: change In value, d: duration
     this._time += delta;
     this._x = CubicBezier._getPointOnBezierCurve(this._options.controlPoints, this._time);
-    return this._x;
+    return this._x * this._options.destination;
   }
 
   static _getPointOnBezierCurve(controlPoints, l) {
