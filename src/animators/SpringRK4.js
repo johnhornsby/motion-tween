@@ -6,7 +6,8 @@ export default class SpringRK4 {
     stiffness: 100,
     damping: 20,
     tolerance: 0.001,
-    destination: 1
+    x: 1,
+    v: 0
   }
 
   static Type = "SPRINGRK4";
@@ -19,10 +20,9 @@ export default class SpringRK4 {
       ...options
     }
 
-    // set position to 1 as we are wanting the result normalised
     this._state = {
-      x: this._options.destination,
-      v: 0
+      x: this._options.x,
+      v: this._options.y
     }
   }
 
@@ -79,5 +79,20 @@ export default class SpringRK4 {
 
   isFinished() {
     return ( Math.round( this._state.v / this._options.tolerance) === 0 && Math.round( this._state.x / this._options.tolerance) === 0 ) ? true: false;
+  }
+
+
+  set v(v) {
+    this._state.v = v;
+  }
+  
+  
+  set x(x) {
+    this._state.x = x;
+  }
+  
+
+  get x() {
+    return this._state.x;
   }
 }

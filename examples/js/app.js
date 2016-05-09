@@ -1183,7 +1183,8 @@
 	      stiffness: 100,
 	      damping: 20,
 	      tolerance: 0.001,
-	      destination: 1
+	      x: 1,
+	      v: 0
 	    },
 	    enumerable: true
 	  }, {
@@ -1198,10 +1199,9 @@
 	    // merge default with passed
 	    this._options = _extends({}, SpringRK4.DEFAULT_OPTIONS, options);
 
-	    // set position to 1 as we are wanting the result normalised
 	    this._state = {
-	      x: this._options.destination,
-	      v: 0
+	      x: this._options.x,
+	      v: this._options.y
 	    };
 	  }
 
@@ -1259,6 +1259,19 @@
 	    key: "isFinished",
 	    value: function isFinished() {
 	      return Math.round(this._state.v / this._options.tolerance) === 0 && Math.round(this._state.x / this._options.tolerance) === 0 ? true : false;
+	    }
+	  }, {
+	    key: "v",
+	    set: function set(v) {
+	      this._state.v = v;
+	    }
+	  }, {
+	    key: "x",
+	    set: function set(x) {
+	      this._state.x = x;
+	    },
+	    get: function get() {
+	      return this._state.x;
 	    }
 	  }]);
 
