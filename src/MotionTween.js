@@ -105,6 +105,7 @@ export default class MotionTween {
     this._startTime = 0;
 
     this._options.animatorOptions.destination = this._endX;
+    this._options.animatorOptions.origin = this._startX;
 
     switch(this._options.animatorType) {
       case Spring.Type:
@@ -148,9 +149,9 @@ export default class MotionTween {
     if (this._animator.isFinished() === false) {
 
       // invert for SpringRK4, SpringRK4 concludes from destination to 0
-      if (this._options.animatorType === SpringRK4.Type) {
-        x = (x - this._endX) * -1;
-      }
+      // if (this._options.animatorType === SpringRK4.Type) {
+      //   x = (x - this._endX) * -1;
+      // }
 
       this._x = x;
       

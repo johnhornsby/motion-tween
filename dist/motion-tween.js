@@ -210,6 +210,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this._startTime = 0;
 
 	      this._options.animatorOptions.destination = this._endX;
+	      this._options.animatorOptions.origin = this._startX;
 
 	      switch (this._options.animatorType) {
 	        case _animatorsSpring2["default"].Type:
@@ -253,9 +254,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (this._animator.isFinished() === false) {
 
 	        // invert for SpringRK4, SpringRK4 concludes from destination to 0
-	        if (this._options.animatorType === _animatorsSpringRK42["default"].Type) {
-	          x = (x - this._endX) * -1;
-	        }
+	        // if (this._options.animatorType === SpringRK4.Type) {
+	        //   x = (x - this._endX) * -1;
+	        // }
 
 	        this._x = x;
 
@@ -920,7 +921,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      damping: 20,
 	      tolerance: 0.001,
 	      x: 1,
-	      v: 0
+	      v: 0,
+	      destination: 1,
+	      origin: 0
 	    },
 	    enumerable: true
 	  }, {
@@ -936,8 +939,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this._options = _extends({}, SpringRK4.DEFAULT_OPTIONS, options);
 
 	    this._state = {
-	      x: this._options.x,
-	      v: this._options.y
+	      x: this._options.destination - this._options.origin,
+	      v: this._options.v
 	    };
 	  }
 
@@ -985,11 +988,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: "step",
 	    value: function step(delta) {
 	      this._state = this._rk4(this._state, this._acceleration.bind(this), delta);
-	      // the calculation gives values starting from 1 and then finishing at 0,
-	      // we need to transform the values to work from 0 to 1.
-	      // (0.75 - 1) * -1 = 0.25
-	      // return (this._state.x - 1) * -1;
-	      return this._state.x;
+
+	      return this.x;
 	    }
 	  }, {
 	    key: "isFinished",
@@ -1007,7 +1007,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this._state.x = x;
 	    },
 	    get: function get() {
-	      return this._state.x;
+	      return this._options.destination - this._options.origin - this._state.x + this._options.origin;;
+	    }
+	  }, {
+	    key: "destination",
+	    set: function set(destination) {
+	      this._options.destination = destination;
+	      this._state.x = this._options.destination - this._options.origin;
+	    }
+	  }, {
+	    key: "origin",
+	    set: function set(origin) {
+	      this._options.origin = origin;
+	      this._state.x = this._options.destination - this._options.origin;
 	    }
 	  }]);
 

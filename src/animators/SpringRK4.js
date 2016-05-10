@@ -7,7 +7,9 @@ export default class SpringRK4 {
     damping: 20,
     tolerance: 0.001,
     x: 1,
-    v: 0
+    v: 0,
+    destination: 1,
+    origin: 0
   }
 
   static Type = "SPRINGRK4";
@@ -21,8 +23,8 @@ export default class SpringRK4 {
     }
 
     this._state = {
-      x: this._options.x,
-      v: this._options.y
+      x: this._options.destination - this._options.origin,
+      v: this._options.v
     }
   }
 
@@ -69,11 +71,8 @@ export default class SpringRK4 {
 
   step(delta) {
     this._state = this._rk4(this._state, ::this._acceleration, delta);
-    // the calculation gives values starting from 1 and then finishing at 0,
-    // we need to transform the values to work from 0 to 1.
-    // (0.75 - 1) * -1 = 0.25
-    // return (this._state.x - 1) * -1;
-    return this._state.x;
+
+    return this.x;
   }
 
 
@@ -91,8 +90,17 @@ export default class SpringRK4 {
     this._state.x = x;
   }
   
+  set destination(destination) {
+    this._options.destination = destination;
+    this._state.x = this._options.destination - this._options.origin;
+  }
+
+  set origin(origin) {
+    this._options.origin = origin;
+    this._state.x = this._options.destination - this._options.origin;
+  }
 
   get x() {
-    return this._state.x;
+    return (this._options.destination - this._options.origin - this._state.x) + this._options.origin;;
   }
 }
