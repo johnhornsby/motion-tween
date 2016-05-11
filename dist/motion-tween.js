@@ -111,7 +111,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      startValue: 0,
 	      endValue: 1,
 	      animatorType: _animatorsFriction2["default"].Type,
-	      animatorOptions: null, // use defaults of selected type
+	      animatorOptions: {}, // use defaults of selected type
 	      update: function update() {},
 	      complete: function complete() {}
 	    },
@@ -252,11 +252,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var x = this._animator.step(delta);
 
 	      if (this._animator.isFinished() === false) {
-
-	        // invert for SpringRK4, SpringRK4 concludes from destination to 0
-	        // if (this._options.animatorType === SpringRK4.Type) {
-	        //   x = (x - this._endX) * -1;
-	        // }
 
 	        this._x = x;
 
