@@ -40,6 +40,6 @@ export default class Spring {
 
 
   isFinished() {
-    return ( Math.round( this._v / this._options.tolerance) === 0 && Math.round( this._x / this._options.tolerance) === 1 / this._options.tolerance) ? true: false;
+    return ( Math.round( this._v / this._options.tolerance) === 0 && Math.round( this._x / this._options.tolerance) === this._options.destination / this._options.tolerance) ? true: false;
   }
 }
