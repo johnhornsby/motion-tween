@@ -253,7 +253,7 @@
 	      startValue: 0,
 	      endValue: 1,
 	      animatorType: _animatorsFriction2["default"].Type,
-	      animatorOptions: null, // use defaults of selected type
+	      animatorOptions: {}, // use defaults of selected type
 	      update: function update() {},
 	      complete: function complete() {}
 	    },
@@ -352,6 +352,7 @@
 	      this._startTime = 0;
 
 	      this._options.animatorOptions.destination = this._endX;
+	      this._options.animatorOptions.origin = this._startX;
 
 	      switch (this._options.animatorType) {
 	        case _animatorsSpring2["default"].Type:
@@ -393,11 +394,6 @@
 	      var x = this._animator.step(delta);
 
 	      if (this._animator.isFinished() === false) {
-
-	        // invert for SpringRK4, SpringRK4 concludes from destination to 0
-	        if (this._options.animatorType === _animatorsSpringRK42["default"].Type) {
-	          x = (x - this._endX) * -1;
-	        }
 
 	        this._x = x;
 
@@ -1038,7 +1034,7 @@
 	  }, {
 	    key: "isFinished",
 	    value: function isFinished() {
-	      return Math.round(this._v / this._options.tolerance) === 0 && Math.round(this._x / this._options.tolerance) === 1 / this._options.tolerance ? true : false;
+	      return Math.round(this._v / this._options.tolerance) === 0 && Math.round(this._x / this._options.tolerance) === this._options.destination / this._options.tolerance ? true : false;
 	    }
 	  }]);
 
@@ -1129,7 +1125,7 @@
 	  }, {
 	    key: "isFinished",
 	    value: function isFinished() {
-	      return Math.round(this._v / this._options.tolerance) === 0 && Math.round(this._x / this._options.tolerance) === 1 / this._options.tolerance ? true : false;
+	      return Math.round(this._v / this._options.tolerance) === 0 && Math.round(this._x / this._options.tolerance) === this._options.destination / this._options.tolerance ? true : false;
 	    }
 	  }]);
 
@@ -1184,7 +1180,9 @@
 	      damping: 20,
 	      tolerance: 0.001,
 	      x: 1,
-	      v: 0
+	      v: 0,
+	      destination: 1,
+	      origin: 0
 	    },
 	    enumerable: true
 	  }, {
@@ -1200,8 +1198,8 @@
 	    this._options = _extends({}, SpringRK4.DEFAULT_OPTIONS, options);
 
 	    this._state = {
-	      x: this._options.x,
-	      v: this._options.y
+	      x: this._options.destination - this._options.origin,
+	      v: this._options.v
 	    };
 	  }
 
@@ -1249,11 +1247,8 @@
 	    key: "step",
 	    value: function step(delta) {
 	      this._state = this._rk4(this._state, this._acceleration.bind(this), delta);
-	      // the calculation gives values starting from 1 and then finishing at 0,
-	      // we need to transform the values to work from 0 to 1.
-	      // (0.75 - 1) * -1 = 0.25
-	      // return (this._state.x - 1) * -1;
-	      return this._state.x;
+
+	      return this.x;
 	    }
 	  }, {
 	    key: "isFinished",
@@ -1271,7 +1266,19 @@
 	      this._state.x = x;
 	    },
 	    get: function get() {
-	      return this._state.x;
+	      return this._options.destination - this._options.origin - this._state.x + this._options.origin;;
+	    }
+	  }, {
+	    key: "destination",
+	    set: function set(destination) {
+	      this._options.destination = destination;
+	      this._state.x = this._options.destination - this._options.origin;
+	    }
+	  }, {
+	    key: "origin",
+	    set: function set(origin) {
+	      this._options.origin = origin;
+	      this._state.x = this._options.destination - this._options.origin;
 	    }
 	  }]);
 
