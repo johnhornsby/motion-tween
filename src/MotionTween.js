@@ -1,10 +1,10 @@
 import Utils from "./Utils";
 import * as Easing from './Easing';
 import CubicBezier from "./animators/CubicBezier";
-import Ease from "./animators/ease";
-import Friction from "./animators/friction";
-import Spring from "./animators/spring";
-import SpringRK4 from "./animators/springRK4";
+import Ease from "./animators/Ease";
+import Friction from "./animators/Friction";
+import Spring from "./animators/Spring";
+import SpringRK4 from "./animators/SpringRK4";
 
 export default class MotionTween {
 
