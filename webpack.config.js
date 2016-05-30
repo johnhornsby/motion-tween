@@ -12,10 +12,7 @@ module.exports = {
 	    {
 	      test: /\.js?$/,
 	      exclude: /(dist|lib|node_modules)/,
-	      loader: 'babel',
-	      query: {
-	        stage: 0
-	      }
+	      loader: 'babel'
 	    }
 	  ]
 	}

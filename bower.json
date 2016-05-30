@@ -9,11 +9,18 @@
   "license": "MIT",
   "ignore": [
     "**/.*",
+    "lib",
     "node_modules",
     "bower_components",
     "test",
     "tests",
     "examples",
-    "src"
+    "src",
+    ".babelrc",
+    ".gitignore",
+    ".travis.yml",
+    "package.json",
+    ".editorconfig",
+    "webpack.config.js"
   ]
 }

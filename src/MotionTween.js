@@ -6,6 +6,8 @@ import Friction from "./animators/Friction";
 import Spring from "./animators/Spring";
 import SpringRK4 from "./animators/SpringRK4";
 
+
+
 export default class MotionTween {
 
   static DEFAULT_OPTIONS = { 
@@ -159,6 +161,7 @@ export default class MotionTween {
       this._isAnimating = false;
     }
   }
+
 
   static _getValue(animatorType, animatorOptions, time) {
     switch(animatorType) {
