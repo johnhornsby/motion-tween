@@ -7,7 +7,7 @@ const block4 = document.getElementsByClassName('block4')[0];
 const block5 = document.getElementsByClassName('block5')[0];
 const block6 = document.getElementsByClassName('block6')[0];
 
-const endX = window.innerWidth - block1.clientWidth
+const endX = window.innerWidth - block1.clientWidth;
 
 new MotionTween({
 	time: 2000,

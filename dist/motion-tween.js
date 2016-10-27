@@ -786,7 +786,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // merge default with passed
 	    this._options = _extends({}, Friction.DEFAULT_OPTIONS, options);
 	    this._v = 0;
-	    this._x = 0;
+	    this._x = this._options.origin;
 	    this._acceleration = (this._options.destination - this._x) * this._options.friction;
 	    this._previousX = 0;
 	  }
