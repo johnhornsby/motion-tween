@@ -53,11 +53,11 @@
 
 	'use strict';
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var _MotionTween = __webpack_require__(2);
 
-	var _libMotionTween = __webpack_require__(2);
+	var _MotionTween2 = _interopRequireDefault(_MotionTween);
 
-	var _libMotionTween2 = _interopRequireDefault(_libMotionTween);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var block1 = document.getElementsByClassName('block1')[0];
 	var block2 = document.getElementsByClassName('block2')[0];
@@ -68,7 +68,7 @@
 
 	var endX = window.innerWidth - block1.clientWidth;
 
-	new _libMotionTween2['default']({
+	new _MotionTween2.default({
 		time: 2000,
 		startValue: 0,
 		endValue: endX,
@@ -78,13 +78,13 @@
 		complete: function complete(x) {
 			console.log('1 complete');
 		},
-		animatorType: _libMotionTween2['default'].animatorType.ease,
+		animatorType: _MotionTween2.default.animatorType.ease,
 		animatorOptions: {
-			easingFunction: _libMotionTween2['default'].easingFunction.easeOutQuad
+			easingFunction: _MotionTween2.default.easingFunction.easeOutQuad
 		}
 	}).start();
 
-	new _libMotionTween2['default']({
+	new _MotionTween2.default({
 		startValue: 0,
 		endValue: endX,
 		update: function update(x) {
@@ -93,14 +93,14 @@
 		complete: function complete(x) {
 			console.log('2 complete');
 		},
-		animatorType: _libMotionTween2['default'].animatorType.friction,
+		animatorType: _MotionTween2.default.animatorType.friction,
 		animatorOptions: {
 			friction: 0.05,
 			tolerance: 0.0001
 		}
 	}).start();
 
-	new _libMotionTween2['default']({
+	new _MotionTween2.default({
 		startValue: 0,
 		endValue: endX,
 		update: function update(x) {
@@ -109,14 +109,14 @@
 		complete: function complete(x) {
 			console.log('3 complete');
 		},
-		animatorType: _libMotionTween2['default'].animatorType.spring,
+		animatorType: _MotionTween2.default.animatorType.spring,
 		animatorOptions: {
 			stiffness: 100,
 			damping: 10
 		}
 	}).start();
 
-	new _libMotionTween2['default']({
+	new _MotionTween2.default({
 		startValue: 0,
 		endValue: endX,
 		update: function update(x) {
@@ -125,14 +125,14 @@
 		complete: function complete(x) {
 			console.log('4 complete');
 		},
-		animatorType: _libMotionTween2['default'].animatorType.springRK4,
+		animatorType: _MotionTween2.default.animatorType.springRK4,
 		animatorOptions: {
 			stiffness: 200,
 			damping: 10
 		}
 	}).start();
 
-	new _libMotionTween2['default']({
+	new _MotionTween2.default({
 		startValue: 0,
 		endValue: endX,
 		update: function update(x) {
@@ -141,13 +141,13 @@
 		complete: function complete(x) {
 			console.log('5 complete');
 		},
-		animatorType: _libMotionTween2['default'].animatorType.cubicBezier,
+		animatorType: _MotionTween2.default.animatorType.cubicBezier,
 		animatorOptions: {
 			controlPoints: [.15, .66, .83, .67]
 		}
 	}).start();
 
-	new _libMotionTween2['default']({
+	new _MotionTween2.default({
 		startValue: 0,
 		endValue: endX,
 		update: function update(x) {
@@ -156,7 +156,7 @@
 		complete: function complete(x) {
 			console.log('6 complete');
 		},
-		animatorType: _libMotionTween2['default'].animatorType.springRK4,
+		animatorType: _MotionTween2.default.animatorType.springRK4,
 		animatorOptions: {
 			stiffness: 200,
 			damping: 10
@@ -164,14 +164,14 @@
 	}).start();
 
 	var animatorOptions = {
-		easingFunction: _libMotionTween2['default'].easingFunction.easeOutQuad
+		easingFunction: _MotionTween2.default.easingFunction.easeOutQuad
 	};
 
 	var time = 0.5;
 
-	var animatorType = _libMotionTween2['default'].animatorType.ease;
+	var animatorType = _MotionTween2.default.animatorType.ease;
 
-	var factoryValue = _libMotionTween2['default'].getValue(animatorType, animatorOptions, time);
+	var factoryValue = _MotionTween2.default.getValue(animatorType, animatorOptions, time);
 
 	console.log('Factory Value is ' + factoryValue);
 
@@ -185,7 +185,7 @@
 	  value: true
 	});
 
-	var _createClass = (function () {
+	var _createClass = function () {
 	  function defineProperties(target, props) {
 	    for (var i = 0; i < props.length; i++) {
 	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
@@ -193,29 +193,7 @@
 	  }return function (Constructor, protoProps, staticProps) {
 	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
 	  };
-	})();
-
-	function _interopRequireWildcard(obj) {
-	  if (obj && obj.__esModule) {
-	    return obj;
-	  } else {
-	    var newObj = {};if (obj != null) {
-	      for (var key in obj) {
-	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-	      }
-	    }newObj["default"] = obj;return newObj;
-	  }
-	}
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { "default": obj };
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
+	}();
 
 	var _Utils = __webpack_require__(3);
 
@@ -225,87 +203,49 @@
 
 	var Easing = _interopRequireWildcard(_Easing);
 
-	var _animatorsCubicBezier = __webpack_require__(5);
+	var _CubicBezier = __webpack_require__(5);
 
-	var _animatorsCubicBezier2 = _interopRequireDefault(_animatorsCubicBezier);
+	var _CubicBezier2 = _interopRequireDefault(_CubicBezier);
 
-	var _animatorsEase = __webpack_require__(6);
+	var _Ease = __webpack_require__(6);
 
-	var _animatorsEase2 = _interopRequireDefault(_animatorsEase);
+	var _Ease2 = _interopRequireDefault(_Ease);
 
-	var _animatorsFriction = __webpack_require__(7);
+	var _Friction = __webpack_require__(7);
 
-	var _animatorsFriction2 = _interopRequireDefault(_animatorsFriction);
+	var _Friction2 = _interopRequireDefault(_Friction);
 
-	var _animatorsSpring = __webpack_require__(8);
+	var _Spring = __webpack_require__(8);
 
-	var _animatorsSpring2 = _interopRequireDefault(_animatorsSpring);
+	var _Spring2 = _interopRequireDefault(_Spring);
 
-	var _animatorsSpringRK4 = __webpack_require__(9);
+	var _SpringRK = __webpack_require__(9);
 
-	var _animatorsSpringRK42 = _interopRequireDefault(_animatorsSpringRK4);
+	var _SpringRK2 = _interopRequireDefault(_SpringRK);
 
-	var MotionTween = (function () {
-	  _createClass(MotionTween, null, [{
-	    key: "DEFAULT_OPTIONS",
-	    value: {
-	      time: 1000,
-	      startValue: 0,
-	      endValue: 1,
-	      animatorType: _animatorsFriction2["default"].Type,
-	      animatorOptions: {}, // use defaults of selected type
-	      update: function update() {},
-	      complete: function complete() {}
-	    },
-	    enumerable: true
-	  }, {
-	    key: "easingFunction",
-	    value: {
-	      easeInQuad: Easing.easeInQuad,
-	      easeOutQuad: Easing.easeOutQuad,
-	      easeInOutQuad: Easing.easeInOutQuad,
-	      swing: Easing.swing,
-	      easeInCubic: Easing.easeInCubic,
-	      easeOutCubic: Easing.easeOutCubic,
-	      easeInOutCubic: Easing.easeInOutCubic,
-	      easeInQuart: Easing.easeInQuart,
-	      easeOutQuart: Easing.easeOutQuart,
-	      easeInOutQuart: Easing.easeInOutQuart,
-	      easeInQuint: Easing.easeInQuint,
-	      easeOutQuint: Easing.easeOutQuint,
-	      easeInOutQuint: Easing.easeInOutQuint,
-	      easeInSine: Easing.easeInSine,
-	      easeOutSine: Easing.easeOutSine,
-	      easeInOutSine: Easing.easeInOutSine,
-	      easeInExpo: Easing.easeInExpo,
-	      easeOutExpo: Easing.easeOutExpo,
-	      easeInOutExpo: Easing.easeInOutExpo,
-	      easeInCirc: Easing.easeInCirc,
-	      easeOutCirc: Easing.easeOutCirc,
-	      easeInOutCirc: Easing.easeInOutCirc,
-	      easeInElastic: Easing.easeInElastic,
-	      easeOutElastic: Easing.easeOutElastic,
-	      easeInOutElastic: Easing.easeInOutElastic,
-	      easeInBack: Easing.easeInBack,
-	      easeOutBack: Easing.easeOutBack,
-	      easeInOutBack: Easing.easeInOutBack,
-	      easeInBounce: Easing.easeInBounce,
-	      easeOutBounce: Easing.easeOutBounce,
-	      easeInOutBounce: Easing.easeInOutBounce
-	    },
-	    enumerable: true
-	  }, {
-	    key: "animatorType",
-	    value: {
-	      spring: _animatorsSpring2["default"].Type,
-	      springRK4: _animatorsSpringRK42["default"].Type,
-	      friction: _animatorsFriction2["default"].Type,
-	      ease: _animatorsEase2["default"].Type,
-	      cubicBezier: _animatorsCubicBezier2["default"].Type
-	    },
-	    enumerable: true
-	  }]);
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
 
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+
+	var MotionTween = function () {
 	  function MotionTween(options) {
 	    _classCallCheck(this, MotionTween);
 
@@ -337,8 +277,8 @@
 	    key: "_init",
 	    value: function _init(options) {
 	      // Deep merge of default and incoming options
-	      _Utils2["default"].extend(this._options, MotionTween.DEFAULT_OPTIONS, true);
-	      _Utils2["default"].extend(this._options, options, true);
+	      _Utils2.default.extend(this._options, MotionTween.DEFAULT_OPTIONS, true);
+	      _Utils2.default.extend(this._options, options, true);
 
 	      // time we can ignore for some of the animators
 	      this._time = this._options.time;
@@ -355,20 +295,20 @@
 	      this._options.animatorOptions.origin = this._startX;
 
 	      switch (this._options.animatorType) {
-	        case _animatorsSpring2["default"].Type:
-	          this._animator = new _animatorsSpring2["default"](this._options.animatorOptions);
+	        case _Spring2.default.Type:
+	          this._animator = new _Spring2.default(this._options.animatorOptions);
 	          break;
-	        case _animatorsSpringRK42["default"].Type:
-	          this._animator = new _animatorsSpringRK42["default"](this._options.animatorOptions);
+	        case _SpringRK2.default.Type:
+	          this._animator = new _SpringRK2.default(this._options.animatorOptions);
 	          break;
-	        case _animatorsFriction2["default"].Type:
-	          this._animator = new _animatorsFriction2["default"](this._options.animatorOptions);
+	        case _Friction2.default.Type:
+	          this._animator = new _Friction2.default(this._options.animatorOptions);
 	          break;
-	        case _animatorsCubicBezier2["default"].Type:
-	          this._animator = new _animatorsCubicBezier2["default"](this._options.animatorOptions);
+	        case _CubicBezier2.default.Type:
+	          this._animator = new _CubicBezier2.default(this._options.animatorOptions);
 	          break;
 	        default:
-	          this._animator = new _animatorsEase2["default"](this._options.animatorOptions);
+	          this._animator = new _Ease2.default(this._options.animatorOptions);
 	      }
 
 	      this._isAnimating = true;
@@ -415,20 +355,68 @@
 	    key: "_getValue",
 	    value: function _getValue(animatorType, animatorOptions, time) {
 	      switch (animatorType) {
-	        case _animatorsCubicBezier2["default"].Type:
-	          return _animatorsCubicBezier2["default"].getValue(animatorOptions, time);
+	        case _CubicBezier2.default.Type:
+	          return _CubicBezier2.default.getValue(animatorOptions, time);
 	          break;
 	        default:
-	          return _animatorsEase2["default"].getValue(animatorOptions, time);
+	          return _Ease2.default.getValue(animatorOptions, time);
 	      }
 	    }
 	  }]);
 
 	  return MotionTween;
-	})();
+	}();
 
-	exports["default"] = MotionTween;
-	module.exports = exports["default"];
+	MotionTween.DEFAULT_OPTIONS = {
+	  time: 1000,
+	  startValue: 0,
+	  endValue: 1,
+	  animatorType: _Friction2.default.Type,
+	  animatorOptions: {}, // use defaults of selected type
+	  update: function update() {},
+	  complete: function complete() {}
+	};
+	MotionTween.easingFunction = {
+	  easeInQuad: Easing.easeInQuad,
+	  easeOutQuad: Easing.easeOutQuad,
+	  easeInOutQuad: Easing.easeInOutQuad,
+	  swing: Easing.swing,
+	  easeInCubic: Easing.easeInCubic,
+	  easeOutCubic: Easing.easeOutCubic,
+	  easeInOutCubic: Easing.easeInOutCubic,
+	  easeInQuart: Easing.easeInQuart,
+	  easeOutQuart: Easing.easeOutQuart,
+	  easeInOutQuart: Easing.easeInOutQuart,
+	  easeInQuint: Easing.easeInQuint,
+	  easeOutQuint: Easing.easeOutQuint,
+	  easeInOutQuint: Easing.easeInOutQuint,
+	  easeInSine: Easing.easeInSine,
+	  easeOutSine: Easing.easeOutSine,
+	  easeInOutSine: Easing.easeInOutSine,
+	  easeInExpo: Easing.easeInExpo,
+	  easeOutExpo: Easing.easeOutExpo,
+	  easeInOutExpo: Easing.easeInOutExpo,
+	  easeInCirc: Easing.easeInCirc,
+	  easeOutCirc: Easing.easeOutCirc,
+	  easeInOutCirc: Easing.easeInOutCirc,
+	  easeInElastic: Easing.easeInElastic,
+	  easeOutElastic: Easing.easeOutElastic,
+	  easeInOutElastic: Easing.easeInOutElastic,
+	  easeInBack: Easing.easeInBack,
+	  easeOutBack: Easing.easeOutBack,
+	  easeInOutBack: Easing.easeInOutBack,
+	  easeInBounce: Easing.easeInBounce,
+	  easeOutBounce: Easing.easeOutBounce,
+	  easeInOutBounce: Easing.easeInOutBounce
+	};
+	MotionTween.animatorType = {
+	  spring: _Spring2.default.Type,
+	  springRK4: _SpringRK2.default.Type,
+	  friction: _Friction2.default.Type,
+	  ease: _Ease2.default.Type,
+	  cubicBezier: _CubicBezier2.default.Type
+	};
+	exports.default = MotionTween;
 
 /***/ },
 /* 3 */
@@ -436,27 +424,27 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
-	var _createClass = (function () {
+	var _createClass = function () {
 	    function defineProperties(target, props) {
 	        for (var i = 0; i < props.length; i++) {
-	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
 	        }
 	    }return function (Constructor, protoProps, staticProps) {
 	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
 	    };
-	})();
+	}();
 
 	function _classCallCheck(instance, Constructor) {
 	    if (!(instance instanceof Constructor)) {
-	        throw new TypeError('Cannot call a class as a function');
+	        throw new TypeError("Cannot call a class as a function");
 	    }
 	}
 
-	var Utils = (function () {
+	var Utils = function () {
 	    function Utils() {
 	        _classCallCheck(this, Utils);
 	    }
@@ -497,9 +485,9 @@
 	    }]);
 
 	    return Utils;
-	})();
+	}();
 
-	exports['default'] = new Utils();
+	exports.default = new Utils();
 
 	(function () {
 	    var lastTime = 0;
@@ -527,13 +515,11 @@
 	        };
 	    }
 	})();
-	module.exports = exports['default'];
 
 /***/ },
 /* 4 */
 /***/ function(module, exports) {
 
-	// t: current time, b: begInnIng value, c: change In value, d: duration
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
@@ -570,7 +556,7 @@
 	exports.easeInBounce = easeInBounce;
 	exports.easeOutBounce = easeOutBounce;
 	exports.easeInOutBounce = easeInOutBounce;
-
+	// t: current time, b: begInnIng value, c: change In value, d: duration
 	function swing(t, b, c, d) {
 		return easeOutQuad(t, b, c, d);
 	}
@@ -752,7 +738,7 @@
 	  }return target;
 	};
 
-	var _createClass = (function () {
+	var _createClass = function () {
 	  function defineProperties(target, props) {
 	    for (var i = 0; i < props.length; i++) {
 	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
@@ -760,7 +746,7 @@
 	  }return function (Constructor, protoProps, staticProps) {
 	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
 	  };
-	})();
+	}();
 
 	function _classCallCheck(instance, Constructor) {
 	  if (!(instance instanceof Constructor)) {
@@ -768,21 +754,7 @@
 	  }
 	}
 
-	var CubicBezier = (function () {
-	  _createClass(CubicBezier, null, [{
-	    key: "DEFAULT_OPTIONS",
-	    value: {
-	      tolerance: 0.001,
-	      controlPoints: [.15, .66, .83, .67],
-	      destination: 1
-	    },
-	    enumerable: true
-	  }, {
-	    key: "Type",
-	    value: "CubicBezier",
-	    enumerable: true
-	  }]);
-
+	var CubicBezier = function () {
 	  function CubicBezier(options) {
 	    _classCallCheck(this, CubicBezier);
 
@@ -842,10 +814,15 @@
 	  }]);
 
 	  return CubicBezier;
-	})();
+	}();
 
-	exports["default"] = CubicBezier;
-	module.exports = exports["default"];
+	CubicBezier.DEFAULT_OPTIONS = {
+	  tolerance: 0.001,
+	  controlPoints: [.15, .66, .83, .67],
+	  destination: 1
+	};
+	CubicBezier.Type = "CubicBezier";
+	exports.default = CubicBezier;
 
 /***/ },
 /* 6 */
@@ -867,7 +844,7 @@
 	  }return target;
 	};
 
-	var _createClass = (function () {
+	var _createClass = function () {
 	  function defineProperties(target, props) {
 	    for (var i = 0; i < props.length; i++) {
 	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
@@ -875,7 +852,11 @@
 	  }return function (Constructor, protoProps, staticProps) {
 	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
 	  };
-	})();
+	}();
+
+	var _Easing = __webpack_require__(4);
+
+	var Easing = _interopRequireWildcard(_Easing);
 
 	function _interopRequireWildcard(obj) {
 	  if (obj && obj.__esModule) {
@@ -885,7 +866,7 @@
 	      for (var key in obj) {
 	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
 	      }
-	    }newObj["default"] = obj;return newObj;
+	    }newObj.default = obj;return newObj;
 	  }
 	}
 
@@ -895,25 +876,7 @@
 	  }
 	}
 
-	var _Easing = __webpack_require__(4);
-
-	var Easing = _interopRequireWildcard(_Easing);
-
-	var Ease = (function () {
-	  _createClass(Ease, null, [{
-	    key: "DEFAULT_OPTIONS",
-	    value: {
-	      tolerance: 0.001,
-	      easingFunction: Easing.easeOutQuad,
-	      destination: 1
-	    },
-	    enumerable: true
-	  }, {
-	    key: "Type",
-	    value: "Ease",
-	    enumerable: true
-	  }]);
-
+	var Ease = function () {
 	  function Ease(options) {
 	    _classCallCheck(this, Ease);
 
@@ -945,10 +908,15 @@
 	  }]);
 
 	  return Ease;
-	})();
+	}();
 
-	exports["default"] = Ease;
-	module.exports = exports["default"];
+	Ease.DEFAULT_OPTIONS = {
+	  tolerance: 0.001,
+	  easingFunction: Easing.easeOutQuad,
+	  destination: 1
+	};
+	Ease.Type = "Ease";
+	exports.default = Ease;
 
 /***/ },
 /* 7 */
@@ -970,7 +938,7 @@
 	  }return target;
 	};
 
-	var _createClass = (function () {
+	var _createClass = function () {
 	  function defineProperties(target, props) {
 	    for (var i = 0; i < props.length; i++) {
 	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
@@ -978,7 +946,7 @@
 	  }return function (Constructor, protoProps, staticProps) {
 	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
 	  };
-	})();
+	}();
 
 	function _classCallCheck(instance, Constructor) {
 	  if (!(instance instanceof Constructor)) {
@@ -986,24 +954,7 @@
 	  }
 	}
 
-	var Friction = (function () {
-	  _createClass(Friction, null, [{
-	    key: "DEFAULT_OPTIONS",
-	    value: {
-	      applyAcceleration: function applyAcceleration(accel) {
-	        return accel;
-	      },
-	      friction: 0.1,
-	      destination: 1,
-	      tolerance: 0.001
-	    },
-	    enumerable: true
-	  }, {
-	    key: "Type",
-	    value: "FRICTION",
-	    enumerable: true
-	  }]);
-
+	var Friction = function () {
 	  function Friction(options) {
 	    _classCallCheck(this, Friction);
 
@@ -1039,10 +990,18 @@
 	  }]);
 
 	  return Friction;
-	})();
+	}();
 
-	exports["default"] = Friction;
-	module.exports = exports["default"];
+	Friction.DEFAULT_OPTIONS = {
+	  applyAcceleration: function applyAcceleration(accel) {
+	    return accel;
+	  },
+	  friction: 0.1,
+	  destination: 1,
+	  tolerance: 0.001
+	};
+	Friction.Type = "FRICTION";
+	exports.default = Friction;
 
 /***/ },
 /* 8 */
@@ -1064,7 +1023,7 @@
 	  }return target;
 	};
 
-	var _createClass = (function () {
+	var _createClass = function () {
 	  function defineProperties(target, props) {
 	    for (var i = 0; i < props.length; i++) {
 	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
@@ -1072,7 +1031,7 @@
 	  }return function (Constructor, protoProps, staticProps) {
 	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
 	  };
-	})();
+	}();
 
 	function _classCallCheck(instance, Constructor) {
 	  if (!(instance instanceof Constructor)) {
@@ -1080,22 +1039,7 @@
 	  }
 	}
 
-	var Spring = (function () {
-	  _createClass(Spring, null, [{
-	    key: "DEFAULT_OPTIONS",
-	    value: {
-	      stiffness: 100,
-	      damping: 20,
-	      tolerance: 0.001,
-	      destination: 1
-	    },
-	    enumerable: true
-	  }, {
-	    key: "Type",
-	    value: "SPRING",
-	    enumerable: true
-	  }]);
-
+	var Spring = function () {
 	  function Spring(options) {
 	    _classCallCheck(this, Spring);
 
@@ -1130,16 +1074,21 @@
 	  }]);
 
 	  return Spring;
-	})();
+	}();
 
-	exports["default"] = Spring;
-	module.exports = exports["default"];
+	Spring.DEFAULT_OPTIONS = {
+	  stiffness: 100,
+	  damping: 20,
+	  tolerance: 0.001,
+	  destination: 1
+	};
+	Spring.Type = "SPRING";
+	exports.default = Spring;
 
 /***/ },
 /* 9 */
 /***/ function(module, exports) {
 
-	// r4k from http://mtdevans.com/2013/05/fourth-order-runge-kutta-algorithm-in-javascript-with-demo/
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
@@ -1156,7 +1105,7 @@
 	  }return target;
 	};
 
-	var _createClass = (function () {
+	var _createClass = function () {
 	  function defineProperties(target, props) {
 	    for (var i = 0; i < props.length; i++) {
 	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
@@ -1164,7 +1113,7 @@
 	  }return function (Constructor, protoProps, staticProps) {
 	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
 	  };
-	})();
+	}();
 
 	function _classCallCheck(instance, Constructor) {
 	  if (!(instance instanceof Constructor)) {
@@ -1172,25 +1121,9 @@
 	  }
 	}
 
-	var SpringRK4 = (function () {
-	  _createClass(SpringRK4, null, [{
-	    key: "DEFAULT_OPTIONS",
-	    value: {
-	      stiffness: 100,
-	      damping: 20,
-	      tolerance: 0.001,
-	      x: 1,
-	      v: 0,
-	      destination: 1,
-	      origin: 0
-	    },
-	    enumerable: true
-	  }, {
-	    key: "Type",
-	    value: "SPRINGRK4",
-	    enumerable: true
-	  }]);
+	// r4k from http://mtdevans.com/2013/05/fourth-order-runge-kutta-algorithm-in-javascript-with-demo/
 
+	var SpringRK4 = function () {
 	  function SpringRK4(options) {
 	    _classCallCheck(this, SpringRK4);
 
@@ -1283,10 +1216,19 @@
 	  }]);
 
 	  return SpringRK4;
-	})();
+	}();
 
-	exports["default"] = SpringRK4;
-	module.exports = exports["default"];
+	SpringRK4.DEFAULT_OPTIONS = {
+	  stiffness: 100,
+	  damping: 20,
+	  tolerance: 0.001,
+	  x: 1,
+	  v: 0,
+	  destination: 1,
+	  origin: 0
+	};
+	SpringRK4.Type = "SPRINGRK4";
+	exports.default = SpringRK4;
 
 /***/ }
 /******/ ]);
