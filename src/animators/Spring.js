@@ -35,11 +35,19 @@ export default class Spring {
     this._v += ((F_spring + F_damper) / mass) * delta;
     this._x += this._v * delta;
 
-    return this._x * this._options.destination;
+    // remember x goes from 0 - 1
+    return this._options.origin + (this._x * (this._options.destination - this._options.origin));
   }
 
 
   isFinished() {
-    return ( Math.round( this._v / this._options.tolerance) === 0 && Math.round( this._x / this._options.tolerance) === this._options.destination / this._options.tolerance) ? true: false;
+  	// round v
+  	const velocity = Math.round( this._v / this._options.tolerance);
+  	// recalculate x
+  	const x = this._options.origin + (this._x * (this._options.destination - this._options.origin));
+  	// round it
+  	const roundedX = Math.round( x / this._options.tolerance) * this._options.tolerance;
+
+    return (velocity === 0 && roundedX === this._options.destination ) ? true: false;
   }
 }

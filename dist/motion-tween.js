@@ -690,7 +690,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // t: current time, b: begInnIng value, c: change In value, d: duration
 	      this._time += delta;
 	      this._x = this._options.easingFunction(this._time, 0, 1, 1);
-	      return this._x * this._options.destination;
+	      return this._options.origin + this._x * (this._options.destination - this._options.origin);
 	    }
 	  }, {
 	    key: "isFinished",
@@ -821,12 +821,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this._v += (F_spring + F_damper) / mass * delta;
 	      this._x += this._v * delta;
 
-	      return this._x * this._options.destination;
+	      // remember x goes from 0 - 1
+	      return this._options.origin + this._x * (this._options.destination - this._options.origin);
 	    }
 	  }, {
 	    key: "isFinished",
 	    value: function isFinished() {
-	      return Math.round(this._v / this._options.tolerance) === 0 && Math.round(this._x / this._options.tolerance) === this._options.destination / this._options.tolerance ? true : false;
+	      // round v
+	      var velocity = Math.round(this._v / this._options.tolerance);
+	      // recalculate x
+	      var x = this._options.origin + this._x * (this._options.destination - this._options.origin);
+	      // round it
+	      var roundedX = Math.round(x / this._options.tolerance) * this._options.tolerance;
+
+	      return velocity === 0 && roundedX === this._options.destination ? true : false;
 	    }
 	  }]);
 

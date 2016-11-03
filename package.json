@@ -1,6 +1,6 @@
 {
   "name": "motion-tween",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Simple tween lib that does nothing more than tween, no connection to the dom!",
   "main": "dist/motion-tween.js",
   "scripts": {

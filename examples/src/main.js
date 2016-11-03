@@ -144,7 +144,7 @@ function getAnimationOptions() {
 
 	case 'ease':
 		return {
-			'easingFunction': parseFloat(document.getElementById('easingFunction').value)
+			'easingFunction': MotionTween.easingFunction[document.getElementById('easingFunction').value]
 		};
 
 	case 'cubicBezier':
@@ -191,7 +191,7 @@ startButton.addEventListener('click', function() {
 		complete: (x) => {
 			console.log('complete');
 		},
-		animatorType: animationTypeElement.value,
+		animatorType: animationTypeElement.value.toUpperCase(),
 		animatorOptions: getAnimationOptions()
 	}
 
