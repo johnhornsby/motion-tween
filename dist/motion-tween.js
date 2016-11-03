@@ -298,7 +298,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _createClass(Utils, [{
 	        key: 'extend',
 	        value: function extend(destination, source) {
-	            var isDeep = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
+	            var isDeep = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 
 	            var hasDepth = false;
 	            for (var property in source) {
@@ -859,7 +859,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	// r4k from http://mtdevans.com/2013/05/fourth-order-runge-kutta-algorithm-in-javascript-with-demo/
-
 	var SpringRK4 = function () {
 	  function SpringRK4(options) {
 	    _classCallCheck(this, SpringRK4);

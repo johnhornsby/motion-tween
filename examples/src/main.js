@@ -116,3 +116,96 @@ const animatorType = MotionTween.animatorType.ease;
 const factoryValue = MotionTween.getValue(animatorType, animatorOptions, time);
 
 console.log(`Factory Value is ${factoryValue}`);
+
+
+let dynamicTween;
+
+const startButton = document.getElementById('startButton');
+const originElement = document.getElementById('origin');
+const destinationElement = document.getElementById('destination');
+const animationTypeElement = document.getElementById('animationType');
+const outputElement = document.getElementById('output');
+
+
+animationTypeElement.addEventListener('change', function() {
+	document.querySelector('.animation-option--selected').classList.remove('animation-option--selected');
+	const id = animationTypeElement.value + "Options";
+	document.getElementById(id).classList.add('animation-option--selected');
+});
+
+function getAnimationOptions() {
+
+
+	switch(animationTypeElement.value) {
+	case 'friction':
+		return {
+			'friction': parseFloat(document.getElementById('frictionOption').value)
+		};
+
+	case 'ease':
+		return {
+			'easingFunction': parseFloat(document.getElementById('easingFunction').value)
+		};
+
+	case 'cubicBezier':
+		return {
+			'controlPoints': [
+				parseFloat(document.getElementById('cubicBezier1').value),
+				parseFloat(document.getElementById('cubicBezier2').value),
+				parseFloat(document.getElementById('cubicBezier3').value),
+				parseFloat(document.getElementById('cubicBezier4').value),
+			]
+		};
+
+	case 'spring':
+		return {
+			'stiffness': parseFloat(document.getElementById('springStiffness').value),
+			'damping': parseFloat(document.getElementById('springDamping').value)
+		};
+
+	case 'springRK4':
+		return {
+			'stiffness': parseFloat(document.getElementById('springRK4Stiffness').value),
+			'damping': parseFloat(document.getElementById('springRK4Damping').value)
+		};
+	}
+
+	
+}
+
+
+startButton.addEventListener('click', function() {
+	if (dynamicTween) {
+		dynamicTween.destroy();
+		dynamicTween = null
+	}
+
+	outputElement.innerHTML = "";
+
+	const options = {
+		startValue: parseFloat(originElement.value),
+		endValue: parseFloat(destinationElement.value),
+		update: (x) => {
+			outputElement.innerHTML += x + '\n';
+		},
+		complete: (x) => {
+			console.log('complete');
+		},
+		animatorType: animationTypeElement.value,
+		animatorOptions: getAnimationOptions()
+	}
+
+	dynamicTween = new MotionTween(options).start();
+});
+
+
+
+
+
+
+
+
+
+
+
+

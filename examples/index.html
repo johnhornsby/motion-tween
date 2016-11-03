@@ -13,7 +13,104 @@
 		<div class="block block4"></div>
 		<div class="block block5"></div>
 		<div class="block block6"></div>
+
+		<fieldset>
+			<label>Origin</label>
+			<input id="origin" type="text" name="origin" value="0">
+		</fieldset>
+
+		<fieldset>
+			<label>Destination</label>
+			<input id="destination" type="text" name="destination" value="1">
+		</fieldset>
+
+		<fieldset>
+			<label>Animation Type</label>
+			<select id="animationType">
+				<option value="friction">Friction</option>
+				<option value="ease">Ease</option>
+				<option value="cubicBezier">Cubic Bezier</option>
+				<option value="spring">Spring</option>
+				<option value="springRK4">Spring RK4</option>
+			</select>
+		</fieldset>
+
+		<fieldset>
+			<label>Animation Options</label>
+
+			<div id="frictionOptions" class="animation-option animation-option--selected">
+				<label>Friction</label>
+				<input id="frictionOption" type="text" name="frictionOption" value="0.1" data-property="friction">
+			</div>
+
+			<div id="easeOptions" class="animation-option">
+				<label>Ease Function</label>
+				<select id="easingFunction">
+					<option value="easeInQuad">Easing.easeInQuad</option>
+					<option value="easeOutQuad">Easing.easeOutQuad</option>
+					<option value="easeInOutQuad">Easing.easeInOutQuad</option>
+					<option value="swing">Easing.swing</option>
+					<option value="easeInCubic">Easing.easeInCubic</option>
+					<option value="easeOutCubic">Easing.easeOutCubic</option>
+					<option value="easeInOutCubic">Easing.easeInOutCubic</option>
+					<option value="easeInQuart">Easing.easeInQuart</option>
+					<option value="easeOutQuart">Easing.easeOutQuart</option>
+					<option value="easeInOutQuart">Easing.easeInOutQuart</option>
+					<option value="easeInQuint">Easing.easeInQuint</option>
+					<option value="easeOutQuint">Easing.easeOutQuint</option>
+					<option value="easeInOutQuint">Easing.easeInOutQuint</option>
+					<option value="easeInSine">Easing.easeInSine</option>
+					<option value="easeOutSine">Easing.easeOutSine</option>
+					<option value="easeInOutSine">Easing.easeInOutSine</option>
+					<option value="easeInExpo">Easing.easeInExpo</option>
+					<option value="easeOutExpo">Easing.easeOutExpo</option>
+					<option value="easeInOutExpo">Easing.easeInOutExpo</option>
+					<option value="easeInCirc">Easing.easeInCirc</option>
+					<option value="easeOutCirc">Easing.easeOutCirc</option>
+					<option value="easeInOutCirc">Easing.easeInOutCirc</option>
+					<option value="easeInElastic">Easing.easeInElastic</option>
+					<option value="easeOutElastic">Easing.easeOutElastic</option>
+					<option value="easeInOutElastic">Easing.easeInOutElastic</option>
+					<option value="easeInBack">Easing.easeInBack</option>
+					<option value="easeOutBack">Easing.easeOutBack</option>
+					<option value="easeInOutBack">Easing.easeInOutBack</option>
+					<option value="easeInBounce">Easing.easeInBounce</option>
+					<option value="easeOutBounce">Easing.easeOutBounce</option>
+					<option value="easeInOutBounce">Easing.easeInOutBounce</option>
+				</select>
+			</div>
+
+			<div id="cubicBezierOptions" class="animation-option">
+				<input id="cubicBezier1" type="text" name="cubicBezier1" value="0.15" data-property="cubicBezier1">
+				<input id="cubicBezier2" type="text" name="cubicBezier2" value="0.66" data-property="cubicBezier2">
+				<input id="cubicBezier3" type="text" name="cubicBezier3" value="0.83" data-property="cubicBezier3">
+				<input id="cubicBezier4" type="text" name="cubicBezier4" value="0.67" data-property="cubicBezier4">
+			</div>
+
+			<div id="springOptions" class="animation-option">
+				<input id="springStiffness" type="text" name="springStiffness" value="100" data-property="stiffness">
+				<input id="springDamping" type="text" name="springDamping" value="20" data-property="damping">
+			</div>
+
+			<div id="springRK4Options" class="animation-option">
+				<input id="springRK4Stiffness" type="text" name="springRK4Stiffness" value="100" data-property="stiffness">
+				<input id="springRK4Damping" type="text" name="springRK4Damping" value="20" data-property="damping">
+			</div>
+
+		</fieldset>
+
+		<fieldset>
+			<input id="startButton" type="button" startButton="" value="START">
+		</fieldset>
+		
+		<fieldset>
+			<label>Ouput</label>
+			<textarea id="output"></textarea>
+		</fieldset>
+
+
 		<script src="http://localhost:3000/app.js"></script>
 		<!-- <script src="js/app.js"></script> -->
 	</body>
 </html>
+
