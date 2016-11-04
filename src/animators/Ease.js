@@ -6,10 +6,12 @@ export default class Ease {
   static DEFAULT_OPTIONS = {
     tolerance: 0.001,
     easingFunction: Easing.easeOutQuad,
-    destination: 1
+    destination: 1,
+    duration: 1,
+    origin: 0
   }
 
-  static Type = "Ease";
+  static Type = "ease";
 
 
   constructor(options) {
@@ -23,20 +25,25 @@ export default class Ease {
     this._time = 0
   }
 
+
   static getValue(options, time) {
     return options.easingFunction(time, 0, 1, 1);
   }
 
 
   step(delta) {
-    // t: current time, b: begInnIng value, c: change In value, d: duration
     this._time += delta;
-    this._x = this._options.easingFunction(this._time, 0, 1, 1);
+    if (this._time >= this._options.duration) {
+    	this._x = 1;
+    } else {
+    	// t: current time, b: begInnIng value, c: change In value, d: duration
+    	this._x = this._options.easingFunction(this._time, 0, 1, this._options.duration);
+    }
     return this._options.origin + (this._x * (this._options.destination - this._options.origin));
   }
 
 
   isFinished() {
-    return this._time >= 1
+    return this._time >= this._options.duration
   }
 }

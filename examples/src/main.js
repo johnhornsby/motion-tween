@@ -118,6 +118,7 @@ const factoryValue = MotionTween.getValue(animatorType, animatorOptions, time);
 console.log(`Factory Value is ${factoryValue}`);
 
 
+// Dynamic Motion Tween Play Ground Ha!
 let dynamicTween;
 
 const startButton = document.getElementById('startButton');
@@ -133,9 +134,8 @@ animationTypeElement.addEventListener('change', function() {
 	document.getElementById(id).classList.add('animation-option--selected');
 });
 
+
 function getAnimationOptions() {
-
-
 	switch(animationTypeElement.value) {
 	case 'friction':
 		return {
@@ -144,7 +144,8 @@ function getAnimationOptions() {
 
 	case 'ease':
 		return {
-			'easingFunction': MotionTween.easingFunction[document.getElementById('easingFunction').value]
+			'easingFunction': MotionTween.easingFunction[document.getElementById('easingFunction').value],
+			'duration': parseFloat(document.getElementById('durationEaseOption').value)
 		};
 
 	case 'cubicBezier':
@@ -154,7 +155,8 @@ function getAnimationOptions() {
 				parseFloat(document.getElementById('cubicBezier2').value),
 				parseFloat(document.getElementById('cubicBezier3').value),
 				parseFloat(document.getElementById('cubicBezier4').value),
-			]
+			],
+			'duration': parseFloat(document.getElementById('durationCubicBezierOption').value)
 		};
 
 	case 'spring':
@@ -169,8 +171,6 @@ function getAnimationOptions() {
 			'damping': parseFloat(document.getElementById('springRK4Damping').value)
 		};
 	}
-
-	
 }
 
 
@@ -191,7 +191,7 @@ startButton.addEventListener('click', function() {
 		complete: (x) => {
 			console.log('complete');
 		},
-		animatorType: animationTypeElement.value.toUpperCase(),
+		animatorType: animationTypeElement.value,
 		animatorOptions: getAnimationOptions()
 	}
 

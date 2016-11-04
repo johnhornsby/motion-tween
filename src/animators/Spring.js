@@ -5,10 +5,11 @@ export default class Spring {
     stiffness: 100,
     damping: 20,
     tolerance: 0.001,
-    destination: 1
+    destination: 1,
+    origin: 0
   }
 
-  static Type = "SPRING";
+  static Type = "spring";
 
 
   constructor(options) {

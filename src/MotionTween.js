@@ -91,6 +91,7 @@ export default class MotionTween {
 
   
   _init(options) {
+  	this._bind();
     // Deep merge of default and incoming options
     Utils.extend(this._options, MotionTween.DEFAULT_OPTIONS, true);
     Utils.extend(this._options, options, true);
@@ -99,6 +100,11 @@ export default class MotionTween {
     this._time = this._options.time;
     this._startX = this._options.startValue;
     this._endX = this._options.endValue;
+  }
+
+
+  _bind() {
+  	this._tick = ::this._tick;
   }
   
 
@@ -129,7 +135,7 @@ export default class MotionTween {
     this._isAnimating = true;
     this._startTime = this._lastTime = new Date().getTime();
 
-    this._requestionAnimationFrameID = window.requestAnimationFrame(::this._tick);
+    this._requestionAnimationFrameID = window.requestAnimationFrame(this._tick);
   }
   
   
@@ -153,7 +159,7 @@ export default class MotionTween {
       this._x = x;
       
       this._options.update(this._x);
-      this._requestionAnimationFrameID = window.requestAnimationFrame(::this._tick);
+      this._requestionAnimationFrameID = window.requestAnimationFrame(this._tick);
     } else {
       this._x = this._endX
       this._options.update(this._x);

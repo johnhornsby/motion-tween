@@ -5,10 +5,11 @@ export default class Friction {
     applyAcceleration: (accel) =>  accel,
     friction: 0.1,
     destination: 1,
+    origin: 0,
     tolerance: 0.001
   }
 
-  static Type = "FRICTION";
+  static Type = "friction";
 
 
   constructor(options) {

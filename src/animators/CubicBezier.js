@@ -6,10 +6,12 @@ export default class CubicBezier {
   static DEFAULT_OPTIONS = {
     tolerance: 0.001,
     controlPoints: [.15, .66, .83, .67],
-    destination: 1
+    duration: 1,
+    destination: 1,
+    origin: 0
   };
 
-  static Type = "CubicBezier";
+  static Type = "cubicBezier";
 
 
   constructor(options) {
@@ -30,11 +32,14 @@ export default class CubicBezier {
 
 
   step(delta) {
-    // t: current time, b: begInnIng value, c: change In value, d: duration
     this._time += delta;
-    this._x = CubicBezier._getPointOnBezierCurve(this._options.controlPoints, this._time);
-    return this._x * this._options.destination;
+
+    const position = this._time / this._options.duration;
+
+    this._x = CubicBezier._getPointOnBezierCurve(this._options.controlPoints, position);
+    return this._options.origin + (this._x * (this._options.destination - this._options.origin));
   }
+
 
   static _getPointOnBezierCurve(controlPoints, l) {
     const a1 = {x: 0, y: 0};
@@ -53,6 +58,7 @@ export default class CubicBezier {
     return CubicBezier._interpolate(c1, c2, l).y;
   }
 
+
   static _interpolate(p1, p2, l) {
       const p3 = {};
 
@@ -62,7 +68,8 @@ export default class CubicBezier {
       return p3;
   }
 
+
   isFinished() {
-    return this._time >= 1
+    return this._time >= this._options.duration;
   }
 }

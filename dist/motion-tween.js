@@ -134,6 +134,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: "_init",
 	    value: function _init(options) {
+	      this._bind();
 	      // Deep merge of default and incoming options
 	      _Utils2.default.extend(this._options, MotionTween.DEFAULT_OPTIONS, true);
 	      _Utils2.default.extend(this._options, options, true);
@@ -142,6 +143,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this._time = this._options.time;
 	      this._startX = this._options.startValue;
 	      this._endX = this._options.endValue;
+	    }
+	  }, {
+	    key: "_bind",
+	    value: function _bind() {
+	      this._tick = this._tick.bind(this);
 	    }
 	  }, {
 	    key: "_start",
@@ -172,7 +178,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this._isAnimating = true;
 	      this._startTime = this._lastTime = new Date().getTime();
 
-	      this._requestionAnimationFrameID = window.requestAnimationFrame(this._tick.bind(this));
+	      this._requestionAnimationFrameID = window.requestAnimationFrame(this._tick);
 	    }
 	  }, {
 	    key: "_destroy",
@@ -196,7 +202,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._x = x;
 
 	        this._options.update(this._x);
-	        this._requestionAnimationFrameID = window.requestAnimationFrame(this._tick.bind(this));
+	        this._requestionAnimationFrameID = window.requestAnimationFrame(this._tick);
 	      } else {
 	        this._x = this._endX;
 	        this._options.update(this._x);
@@ -595,15 +601,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(CubicBezier, [{
 	    key: "step",
 	    value: function step(delta) {
-	      // t: current time, b: begInnIng value, c: change In value, d: duration
 	      this._time += delta;
-	      this._x = CubicBezier._getPointOnBezierCurve(this._options.controlPoints, this._time);
-	      return this._x * this._options.destination;
+
+	      var position = this._time / this._options.duration;
+
+	      this._x = CubicBezier._getPointOnBezierCurve(this._options.controlPoints, position);
+	      return this._options.origin + this._x * (this._options.destination - this._options.origin);
 	    }
 	  }, {
 	    key: "isFinished",
 	    value: function isFinished() {
-	      return this._time >= 1;
+	      return this._time >= this._options.duration;
 	    }
 	  }], [{
 	    key: "getValue",
@@ -646,9 +654,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	CubicBezier.DEFAULT_OPTIONS = {
 	  tolerance: 0.001,
 	  controlPoints: [.15, .66, .83, .67],
-	  destination: 1
+	  duration: 1,
+	  destination: 1,
+	  origin: 0
 	};
-	CubicBezier.Type = "CubicBezier";
+	CubicBezier.Type = "cubicBezier";
 	exports.default = CubicBezier;
 
 /***/ },
@@ -687,15 +697,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(Ease, [{
 	    key: "step",
 	    value: function step(delta) {
-	      // t: current time, b: begInnIng value, c: change In value, d: duration
 	      this._time += delta;
-	      this._x = this._options.easingFunction(this._time, 0, 1, 1);
+	      if (this._time >= this._options.duration) {
+	        this._x = 1;
+	      } else {
+	        // t: current time, b: begInnIng value, c: change In value, d: duration
+	        this._x = this._options.easingFunction(this._time, 0, 1, this._options.duration);
+	      }
 	      return this._options.origin + this._x * (this._options.destination - this._options.origin);
 	    }
 	  }, {
 	    key: "isFinished",
 	    value: function isFinished() {
-	      return this._time >= 1;
+	      return this._time >= this._options.duration;
 	    }
 	  }], [{
 	    key: "getValue",
@@ -710,9 +724,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	Ease.DEFAULT_OPTIONS = {
 	  tolerance: 0.001,
 	  easingFunction: Easing.easeOutQuad,
-	  destination: 1
+	  destination: 1,
+	  duration: 1,
+	  origin: 0
 	};
-	Ease.Type = "Ease";
+	Ease.Type = "ease";
 	exports.default = Ease;
 
 /***/ },
@@ -775,9 +791,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 	  friction: 0.1,
 	  destination: 1,
+	  origin: 0,
 	  tolerance: 0.001
 	};
-	Friction.Type = "FRICTION";
+	Friction.Type = "friction";
 	exports.default = Friction;
 
 /***/ },
@@ -845,9 +862,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  stiffness: 100,
 	  damping: 20,
 	  tolerance: 0.001,
-	  destination: 1
+	  destination: 1,
+	  origin: 0
 	};
-	Spring.Type = "SPRING";
+	Spring.Type = "spring";
 	exports.default = Spring;
 
 /***/ },
@@ -971,7 +989,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  destination: 1,
 	  origin: 0
 	};
-	SpringRK4.Type = "SPRINGRK4";
+	SpringRK4.Type = "springRK4";
 	exports.default = SpringRK4;
 
 /***/ }

@@ -12,7 +12,7 @@ export default class SpringRK4 {
     origin: 0
   }
 
-  static Type = "SPRINGRK4";
+  static Type = "springRK4";
 
 
   constructor(options) {
@@ -90,6 +90,7 @@ export default class SpringRK4 {
     this._state.x = x;
   }
   
+
   set destination(destination) {
     this._options.destination = destination;
     this._state.x = this._options.destination - this._options.origin;
