@@ -96,6 +96,11 @@ export default class MotionTween {
     Utils.extend(this._options, MotionTween.DEFAULT_OPTIONS, true);
     Utils.extend(this._options, options, true);
 
+    // Check for null or undefined, currently a null will overwrite the default {}
+    if (this._options.animatorOptions === null || this._options.animatorOptions === undefined) {
+    	this._options.animatorOptions = {};
+    }
+
     // time we can ignore for some of the animators
     this._time = this._options.time;
     this._startX = this._options.startValue;
