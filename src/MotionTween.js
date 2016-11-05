@@ -83,7 +83,7 @@ export default class MotionTween {
   
   static getValue(animatorType, animatorOptions, time) { return MotionTween._getValue(animatorType, animatorOptions, time); }
 
-  start() { this._start() }
+  start() { return this._start() }
 
   destroy() { this._destroy() }
 
@@ -136,6 +136,8 @@ export default class MotionTween {
     this._startTime = this._lastTime = new Date().getTime();
 
     this._requestionAnimationFrameID = window.requestAnimationFrame(this._tick);
+
+    return this;
   }
   
   

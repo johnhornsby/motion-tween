@@ -124,7 +124,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(MotionTween, [{
 	    key: "start",
 	    value: function start() {
-	      this._start();
+	      return this._start();
 	    }
 	  }, {
 	    key: "destroy",
@@ -179,6 +179,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this._startTime = this._lastTime = new Date().getTime();
 
 	      this._requestionAnimationFrameID = window.requestAnimationFrame(this._tick);
+
+	      return this;
 	    }
 	  }, {
 	    key: "_destroy",
