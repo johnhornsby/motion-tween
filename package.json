@@ -4,17 +4,20 @@
   "description": "Simple tween lib that does nothing more than tween, no connection to the dom!",
   "main": "dist/motion-tween.js",
   "scripts": {
-  	"build:lib": "node_modules/.bin/babel src --out-dir lib --ignore '**/*-test.js'",
-  	"build:umd": "webpack",
-  	"build": "npm run build:lib && npm run build:umd"
+    "build:lib": "node_modules/.bin/babel src --out-dir lib --ignore '**/*-test.js'",
+    "build:umd": "webpack",
+    "build": "npm run build:lib && npm run build:umd"
   },
   "babel": {
-    "presets" : ["es2015", "stage-0"]
+    "presets": [
+      "es2015",
+      "stage-0"
+    ]
   },
   "author": "john@interactivelabs.co.uk",
   "license": "ISC",
   "devDependencies": {
-  	"babel-cli": "^6.9.0",
+    "babel-cli": "^6.9.0",
     "babel-core": "^6.9.0",
     "babel-jest": "^12.1.0",
     "babel-loader": "^6.2.4",

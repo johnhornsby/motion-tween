@@ -4,7 +4,8 @@
   "description": "Examples to test MotionTween",
   "main": "server.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "examples": "node server.js"
   },
   "author": "john@interactivelabs.co.uk",
   "license": "ISC",

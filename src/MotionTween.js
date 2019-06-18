@@ -153,6 +153,9 @@ export default class MotionTween {
 
   
   _tick() {
+	// check for destroyed motion tween
+	if (this._options === null) return;
+
     const now = new Date().getTime();
 
     let delta = (now - this._lastTime) / this._time;
