@@ -1,6 +1,6 @@
 {
   "name": "motion-tween",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Simple tween lib that does nothing more than tween, no connection to the dom!",
   "main": "dist/motion-tween.js",
   "scripts": {
@@ -14,7 +14,7 @@
       "stage-0"
     ]
   },
-  "author": "john@interactivelabs.co.uk",
+  "author": "john.hornsby@inpiretec.com",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.9.0",
